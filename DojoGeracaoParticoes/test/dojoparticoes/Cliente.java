@@ -1,25 +1,25 @@
-package intercalacao;
+package dojoparticoes;
 
+import dojoparticoes.Entidade;
+import dojoparticoes.Cliente;
 import java.io.DataOutputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 
 /*
- * Classe que implementa um cliente com codigo, nome e dataNascimento
+ * Classe que implementa um cliente com codigo e nome 
  */
-public class Cliente {
+public class Cliente implements Entidade {
 
     public int codCliente;
-    public String nome;
-    public String dataNascimento;
+    public String nome;    
 
     /*
      * Construtor do Cliente
      */
-    public Cliente(int codCliente, String nome, String dataNascimento) {
+    public Cliente(int codCliente, String nome) {
         this.codCliente = codCliente;
-        this.nome = nome;
-        this.dataNascimento = dataNascimento;
+        this.nome = nome;        
     }
 
     /**
@@ -28,8 +28,7 @@ public class Cliente {
      */
     public void salva(DataOutputStream out) throws IOException {
         out.writeInt(codCliente);
-        out.writeUTF(nome);
-        out.writeUTF(dataNascimento);
+        out.writeUTF(nome);        
     }
 
     /**
@@ -39,7 +38,7 @@ public class Cliente {
      * @return instância de Cliente populada com os dados lidos
      */
     public static Cliente le(DataInputStream in) throws IOException {
-        return new Cliente(in.readInt(), in.readUTF(), in.readUTF());
+        return new Cliente(in.readInt(), in.readUTF());
     }
 
     /**
@@ -47,7 +46,7 @@ public class Cliente {
      */
     @Override
     public String toString() {
-        return this.codCliente + ", " + this.nome + ", " + this.dataNascimento;
+        return this.codCliente + ", " + this.nome;
     }
 
     /*
@@ -71,10 +70,7 @@ public class Cliente {
         }
         if ((this.nome == null) ? (other.nome != null) : !this.nome.equals(other.nome)) {
             return false;
-        }
-        if ((this.dataNascimento == null) ? (other.dataNascimento != null) : !this.dataNascimento.equals(other.dataNascimento)) {
-            return false;
-        }
+        }        
         return true;
     }
 
@@ -86,8 +82,7 @@ public class Cliente {
     public int hashCode() {
         int hash = 7;
         hash = 71 * hash + this.codCliente;
-        hash = 71 * hash + (this.nome != null ? this.nome.hashCode() : 0);
-        hash = 71 * hash + (this.dataNascimento != null ? this.dataNascimento.hashCode() : 0);
+        hash = 71 * hash + (this.nome != null ? this.nome.hashCode() : 0);        
         return hash;
     }
 }
