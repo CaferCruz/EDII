@@ -141,7 +141,7 @@ public class AdicionarTabela extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         if (jTextNomeTabela.getText() != null) {
-            JOptionPane pop = new JOptionPane();
+            JOptionPane.showMessageDialog(null, "Você não preencheu o nome da Tabela");
             //Mensagem de aalerta que não exite nome da Tabela.
         } else {
              try {
