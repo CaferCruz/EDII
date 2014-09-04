@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package dojoparticoes;
+package dojointercalacao;
 
+import dojointercalacao.*;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -20,3 +21,4 @@ public interface Entidade {
      */
     public void salva(DataOutputStream out) throws IOException;
 }
+

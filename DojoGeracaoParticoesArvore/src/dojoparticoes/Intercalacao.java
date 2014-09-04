@@ -105,7 +105,7 @@ public class Intercalacao {
                 nomearq.close();
             }
             //ordenar array
-            vencedor.criar(folhas);
+            vencedor.construir(folhas);
         }
         System.out.println("***Arquivo saida***");
         for(No s: saida){

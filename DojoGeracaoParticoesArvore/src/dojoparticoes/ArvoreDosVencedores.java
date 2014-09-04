@@ -5,6 +5,8 @@
  */
 package dojoparticoes;
 
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -16,26 +18,45 @@ public class ArvoreDosVencedores {
     private No vencedor = null;
 
     public ArvoreDosVencedores(ArrayList<No> folhas) {
-        criar(folhas);
-    }
-
-    public ArvoreDosVencedores ordenar(ArvoreDosVencedores arvore) {
-        return null;
+        construir(folhas);
     }
 
     public No getVencedor() {
         return this.vencedor;
     }
 
-    public void removerVencedor(No elem) {
+    public void removerVencedor() throws IOException {
+        No topo = this.vencedor;
+        DataInputStream nomearq = this.vencedor.getArq();
+        Cliente novo = Cliente.le(nomearq);
+        if (novo.codCliente == Integer.MAX_VALUE) {
+            nomearq.close();
+        }
+        int elemSub = this.vencedor.getElem().codCliente;
+        No sub = new No(novo, nomearq, topo.getDir(), topo.getEsq());
+        //this.vencedor = sub;
+        No aux = this.vencedor;
+        while (topo.getDir() != null || topo.getEsq() != null) {
+            //sub = new No(novo, nomearq, topo.getDir(), topo.getEsq());
+            topo = new No(novo, nomearq, topo.getDir(), topo.getEsq());
+            if (topo.getDir().getElem().codCliente == elemSub) {
+                topo = topo.getDir();
+                topo = new No(novo, nomearq, topo.getDir(), topo.getEsq());
+            } else if (topo.getEsq().getElem().codCliente == elemSub) {
+                topo = topo.getEsq();
+                topo = new No(novo, nomearq, topo.getDir(), topo.getEsq());
+            }
+
+            if (aux.getDir().getElem().codCliente < aux.getEsq().getElem().codCliente) {
+                aux = new No(aux.getDir(), aux., aux, aux);
+            } else {
+                this.vencedor = 
+            }
+        }
 
     }
 
-    public void remover(No elem) {
-
-    }
-
-    public void criar(ArrayList<No> folhas) {
+    public final void construir(ArrayList<No> folhas) {
         if (folhas == null) {
             throw new IllegalArgumentException("Não existem folhas.");
         }
