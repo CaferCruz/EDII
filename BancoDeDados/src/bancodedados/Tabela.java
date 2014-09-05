@@ -5,11 +5,8 @@
  */
 package bancodedados;
 
-import java.io.DataInputStream;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -18,28 +15,35 @@ import java.util.logging.Logger;
 public class Tabela {
 
     private String nomeTabela;
+    private ArrayList<Campo> campos;
 
-    public Tabela(String nomeTabela, ArrayList<Campo> campos) throws FileNotFoundException, IOException {
+    public Tabela(String nomeTabela) {
         this.nomeTabela = nomeTabela;
-        criar(this.nomeTabela, campos);
+        campos = new ArrayList<>();
     }
 
-    private void criar(String nome, ArrayList<Campo> campos) throws FileNotFoundException, IOException {
-        DataOutputStream escrever = null;
+    public void addCampo(Campo c) {
+        this.campos.add(c);
+    }
+
+    public void salva() throws FileNotFoundException, IOException {
+        //Salvar no catálogo
+
+        //Criação do arquivo da tabela
+        DataOutputStream out = null;
         try {
-            escrever = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(nome.concat(".dat"))));
-            //colocar as campos no arquivo.
-        }//
-        catch (FileNotFoundException ex) {
-            throw new FileNotFoundException("Arquivo não pode ser criado.");
-        } ///   
-        catch (IOException e) {
-            throw new IOException("Um Erro ocorreu.");
+            out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(new File(nomeTabela.concat(".dat")))));
+
+        } catch (FileNotFoundException ex) {
+            throw new FileNotFoundException("Arquivo não encontrado.");
         } finally {
-            if (escrever != null) {
-                escrever.close();
+            if (out != null) {
+                out.close();
             }
+            
         }
+        /********/
+        
     }
 
 }
