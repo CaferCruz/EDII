@@ -30,12 +30,12 @@ public class BancoDeDados {
             System.out.println("**********");
             System.out.print("escolha: ");
             int menu = tec.nextInt();
-            Runtime.getRuntime().exec("cls");
             switch (menu) {
                 case 1:
                     System.out.println("**********");
                     System.out.print("Tabela: ");
-                    String tabela = tec.next();
+                    Tabela tab = new Tabela(tec.next());
+                    
                     boolean loopTab = true;
                     //repetir
                     while (loopTab) {
@@ -46,15 +46,17 @@ public class BancoDeDados {
                         int resp = tec.nextInt();
                         switch (resp) {
                             case 1:
+                                System.out.print("Nome do Campo:");
+                                String nomeCampo = tec.next();
                                 System.out.println("***Tipo***");
                                 System.out.println("1. Inteiro");
                                 System.out.println("2. String");
                                 System.out.print("escolha: ");
                                 int tipo = tec.nextInt();
-                                //criar Campo
+                                tab.addCampo(new Campo(tipo, nomeCampo));
                                 break;
                             case 2:
-                                //Criar Tabela
+                                tab.salva();
                                 loopTab = false;
                                 break;
                         }
