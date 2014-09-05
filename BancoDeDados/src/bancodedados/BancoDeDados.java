@@ -22,24 +22,24 @@ public class BancoDeDados {
         boolean loop = true;
 
         while (loop) {
-            System.out.println("***MENU***");
+            System.out.println("*** MENU ***");
             System.out.println("1. Adicionar");
             System.out.println("2. Remover");
             System.out.println("3. Buscar");
-            System.out.println("4. Sair");
-            System.out.println("**********");
+            System.out.println("4. Lista");
+            System.out.println("5. Sair");
+            System.out.println("***********");
             System.out.print("escolha: ");
             int menu = tec.nextInt();
             switch (menu) {
                 case 1:
-                    System.out.println("**********");
+                    System.out.println("***********");
                     System.out.print("Tabela: ");
                     Tabela tab = new Tabela(tec.next());
-                    
                     boolean loopTab = true;
                     //repetir
                     while (loopTab) {
-                        System.out.println("***Campos da tabela***");
+                        System.out.println("*** Campos da tabela ***");
                         System.out.println("1. Inserir novo campo.");
                         System.out.println("2. Salvar e sair.");
                         System.out.print("escolha: ");
@@ -48,7 +48,7 @@ public class BancoDeDados {
                             case 1:
                                 System.out.print("Nome do Campo:");
                                 String nomeCampo = tec.next();
-                                System.out.println("***Tipo***");
+                                System.out.println("*** Tipo ***");
                                 System.out.println("1. Inteiro");
                                 System.out.println("2. String");
                                 System.out.print("escolha: ");
@@ -56,8 +56,12 @@ public class BancoDeDados {
                                 tab.addCampo(new Campo(tipo, nomeCampo));
                                 break;
                             case 2:
-                                tab.salva();
-                                loopTab = false;
+                                if (tab.isCampoVazio()) {
+                                    System.out.println("Informe pelo menos um campo.");
+                                } else {
+                                    tab.salva();
+                                    loopTab = false;
+                                }
                                 break;
                         }
                     }
@@ -69,6 +73,9 @@ public class BancoDeDados {
                     System.out.println("Em construção");
                     break;
                 case 4:
+                    Catalogo.listar();
+                    break;
+                case 5:
                     loop = false;
                     break;
             }

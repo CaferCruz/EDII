@@ -17,7 +17,7 @@ public class Tabela {
     private String nomeTabela;
     private ArrayList<Campo> campos;
 
-    public Tabela(String nomeTabela) {
+    public Tabela(String nomeTabela) throws IOException {
         this.nomeTabela = nomeTabela;
         campos = new ArrayList<>();
     }
@@ -26,9 +26,13 @@ public class Tabela {
         this.campos.add(c);
     }
 
+    public boolean isCampoVazio() {
+        return this.campos.isEmpty();
+    }
+
     public void salva() throws FileNotFoundException, IOException {
         //Salvar no catálogo
-
+        Catalogo.adicionar(this.nomeTabela, this.campos);
         //Criação do arquivo da tabela
         DataOutputStream out = null;
         try {
@@ -40,10 +44,8 @@ public class Tabela {
             if (out != null) {
                 out.close();
             }
-            
+
         }
-        /********/
-        
     }
 
 }

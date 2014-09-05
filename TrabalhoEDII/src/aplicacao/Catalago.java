@@ -5,7 +5,7 @@
  */
 package aplicacao;
 
-import java.io.BufferedOutputStream;
+import java.io.*;
 import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,7 +20,10 @@ public class Catalago {
 
     public static void adicionar(String nome, ArrayList<Campo> campos) throws FileNotFoundException, IOException {
         DataOutputStream escrever = null;
+        PrintWriter out = null;
         try {
+            out = new PrintWriter(new BufferedWriter(new FileWriter("catalogo.dat", true)));
+            
             escrever = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(nome)));
             //Fazer que esteja garantindo que seja escrito no final.
             escrever.writeUTF(nome);
@@ -35,8 +38,8 @@ public class Catalago {
         catch (IOException e) {
             throw new IOException("Um Erro ocorreu.");
         } finally {
-            if (escrever != null) {
-                escrever.close();
+            if (out != null) {
+                out.close();
             }
         }
     }
