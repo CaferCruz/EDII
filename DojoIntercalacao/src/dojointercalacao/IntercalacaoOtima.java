@@ -27,7 +27,7 @@ public class IntercalacaoOtima {
             }else if (nomeParticoes.size() == 2) {
                 candidatos.add(nomeParticoes.remove(0));
                 candidatos.add(nomeParticoes.remove(1));
-                intercalacao(candidatos);
+             //   intercalacao(candidatos);
                 
             }
             

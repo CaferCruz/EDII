@@ -48,9 +48,9 @@ public class ArvoreDosVencedores {
             }
 
             if (aux.getDir().getElem().codCliente < aux.getEsq().getElem().codCliente) {
-                aux = new No(aux.getDir(), aux., aux, aux);
+//                aux = new No(aux.getDir(), aux., aux, aux);
             } else {
-                this.vencedor = 
+               // this.vencedor = 
             }
         }
 

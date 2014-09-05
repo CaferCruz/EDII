@@ -45,16 +45,16 @@ public class GeracaoParticoesTest {
         }
     }
 
-    /**
-     * *******************************************************************
+    
+    /*********************************************************************
      * *******************************************************************
      * TESTES RELACIONADOS A GERAÇÃO DE PARTIÇÃO POR CLASSIFICACAO INTERNA
-     * *******************************************************************
-     * *******************************************************************
-     */
-    /**
-     * Testa o caso de arquivo vazio Como resultado, deve ser criado um arquivo
-     * p1.dat, também vazio
+     * *******************************************************************     
+     *********************************************************************/
+    
+    /** 
+     * Testa o caso de arquivo vazio
+     * Como resultado, deve ser criado um arquivo p1.dat, também vazio
      */
     //@Test
     public void teste1ClassificacaoInterna() throws FileNotFoundException, Exception {
@@ -74,13 +74,11 @@ public class GeracaoParticoesTest {
     public void teste2ClassificacaoInterna() throws FileNotFoundException, Exception {
         entrada.add(new Cliente(1, "João"));
         entrada.add(new Cliente(5, "Maria"));
-        entrada.add(new Cliente(Integer.MAX_VALUE, ""));
 
         Arquivos.salva(NOME_ARQUIVO_ENTRADA, entrada);
 
         oraculoSaida.add(new Cliente(1, "João"));
         oraculoSaida.add(new Cliente(5, "Maria"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
 
         nomeArquivosSaida.add("p1.dat");
 
@@ -97,13 +95,11 @@ public class GeracaoParticoesTest {
     public void teste3ClassificacaoInterna() throws FileNotFoundException, Exception {
         entrada.add(new Cliente(5, "Maria"));
         entrada.add(new Cliente(1, "João"));
-        entrada.add(new Cliente(Integer.MAX_VALUE, ""));
 
         Arquivos.salva(NOME_ARQUIVO_ENTRADA, entrada);
 
         oraculoSaida.add(new Cliente(1, "João"));
         oraculoSaida.add(new Cliente(5, "Maria"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
 
         nomeArquivosSaida.add("p1.dat");
 
@@ -125,7 +121,7 @@ public class GeracaoParticoesTest {
         entrada.add(new Cliente(8, "Vanessa"));
         entrada.add(new Cliente(7, "Bruna"));
         entrada.add(new Cliente(2, "Marcos"));
-        entrada.add(new Cliente(Integer.MAX_VALUE, ""));
+
         Arquivos.salva(NOME_ARQUIVO_ENTRADA, entrada);
 
         oraculoSaida.add(new Cliente(1, "João"));
@@ -134,7 +130,6 @@ public class GeracaoParticoesTest {
         oraculoSaida.add(new Cliente(7, "Bruna"));
         oraculoSaida.add(new Cliente(8, "Vanessa"));
         oraculoSaida.add(new Cliente(10, "Mirtes"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
 
         nomeArquivosSaida.add("p1.dat");
 
@@ -158,7 +153,6 @@ public class GeracaoParticoesTest {
         entrada.add(new Cliente(8, "Vanessa"));
         entrada.add(new Cliente(7, "Bruna"));
         entrada.add(new Cliente(2, "Marcos"));
-        entrada.add(new Cliente(Integer.MAX_VALUE, ""));
 
         Arquivos.salva(NOME_ARQUIVO_ENTRADA, entrada);
 
@@ -167,28 +161,26 @@ public class GeracaoParticoesTest {
 
         instance.executaClassificacaoInterna(NOME_ARQUIVO_ENTRADA, nomeArquivosSaida, 6);
 
-        oraculoSaida.add(new Cliente(1, "João"));
+        oraculoSaida.add(new Cliente(1, "João"));        
         oraculoSaida.add(new Cliente(3, "Matheus"));
-        oraculoSaida.add(new Cliente(5, "Maria"));
+        oraculoSaida.add(new Cliente(5, "Maria"));        
         oraculoSaida.add(new Cliente(10, "Mirtes"));
         oraculoSaida.add(new Cliente(20, "Mariana"));
         oraculoSaida.add(new Cliente(87, "Jonas"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        
         saida = Arquivos.leCliente(nomeArquivosSaida.get(0));
         assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
 
         oraculoSaida.clear();
         oraculoSaida.add(new Cliente(2, "Marcos"));
         oraculoSaida.add(new Cliente(7, "Bruna"));
-        oraculoSaida.add(new Cliente(8, "Vanessa"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        oraculoSaida.add(new Cliente(8, "Vanessa"));        
+        
         saida.clear();
         saida = Arquivos.leCliente(nomeArquivosSaida.get(1));
         assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
     }
-
+    
     /**
      * Testa o caso de arquivo com 20 registros desordenados
      */
@@ -200,24 +192,24 @@ public class GeracaoParticoesTest {
         entrada.add(new Cliente(20, "Mariana"));
         entrada.add(new Cliente(3, "Matheus"));
         entrada.add(new Cliente(87, "Jonas"));
-
+        
         entrada.add(new Cliente(8, "Vanessa"));
         entrada.add(new Cliente(7, "Bruna"));
         entrada.add(new Cliente(2, "Marcos"));
         entrada.add(new Cliente(0, "Julia"));
         entrada.add(new Cliente(9, "Ana Maria"));
         entrada.add(new Cliente(81, "Bianca"));
-
+        
         entrada.add(new Cliente(60, "Hugo"));
         entrada.add(new Cliente(47, "Martim"));
         entrada.add(new Cliente(23, "Clarissa"));
         entrada.add(new Cliente(22, "Lucila"));
         entrada.add(new Cliente(35, "Marceu"));
         entrada.add(new Cliente(48, "Tatiana"));
-
+        
         entrada.add(new Cliente(90, "Catarina"));
         entrada.add(new Cliente(85, "Leonardo"));
-        entrada.add(new Cliente(Integer.MAX_VALUE, ""));
+        
 
         Arquivos.salva(NOME_ARQUIVO_ENTRADA, entrada);
 
@@ -227,18 +219,17 @@ public class GeracaoParticoesTest {
         nomeArquivosSaida.add("p4.dat");
 
         instance.executaClassificacaoInterna(NOME_ARQUIVO_ENTRADA, nomeArquivosSaida, 6);
-
-        oraculoSaida.add(new Cliente(1, "João"));
+        
+        oraculoSaida.add(new Cliente(1, "João"));                        
         oraculoSaida.add(new Cliente(3, "Matheus"));
-        oraculoSaida.add(new Cliente(5, "Maria"));
+        oraculoSaida.add(new Cliente(5, "Maria"));        
         oraculoSaida.add(new Cliente(10, "Mirtes"));
         oraculoSaida.add(new Cliente(20, "Mariana"));
-        oraculoSaida.add(new Cliente(87, "Jonas"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
+        oraculoSaida.add(new Cliente(87, "Jonas"));                               
 
         saida = Arquivos.leCliente(nomeArquivosSaida.get(0));
         assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
-
+        
         oraculoSaida.clear();
         oraculoSaida.add(new Cliente(0, "Julia"));
         oraculoSaida.add(new Cliente(2, "Marcos"));
@@ -246,45 +237,42 @@ public class GeracaoParticoesTest {
         oraculoSaida.add(new Cliente(8, "Vanessa"));
         oraculoSaida.add(new Cliente(9, "Ana Maria"));
         oraculoSaida.add(new Cliente(81, "Bianca"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        
         saida.clear();
         saida = Arquivos.leCliente(nomeArquivosSaida.get(1));
         assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
-
+        
         oraculoSaida.clear();
         oraculoSaida.add(new Cliente(22, "Lucila"));
         oraculoSaida.add(new Cliente(23, "Clarissa"));
         oraculoSaida.add(new Cliente(35, "Marceu"));
         oraculoSaida.add(new Cliente(47, "Martim"));
         oraculoSaida.add(new Cliente(48, "Tatiana"));
-        oraculoSaida.add(new Cliente(60, "Hugo"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        oraculoSaida.add(new Cliente(60, "Hugo"));        
+        
         saida.clear();
         saida = Arquivos.leCliente(nomeArquivosSaida.get(2));
         assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
-
+        
         oraculoSaida.clear();
-        oraculoSaida.add(new Cliente(85, "Leonardo"));
-        oraculoSaida.add(new Cliente(90, "Catarina"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        oraculoSaida.add(new Cliente(85, "Leonardo"));        
+        oraculoSaida.add(new Cliente(90, "Catarina"));   
+        
         saida.clear();
         saida = Arquivos.leCliente(nomeArquivosSaida.get(3));
-        assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
+        assertArrayEquals(oraculoSaida.toArray(), saida.toArray());                
     }
-
-    /**
-     * *******************************************************************
+    
+    /*********************************************************************
      * *******************************************************************
      * TESTES RELACIONADOS A GERAÇÃO DE PARTIÇÃO POR SELECAO COM SUBSTITUICAO
-     * *******************************************************************
-     * *******************************************************************
-     */
-    /**
-     * Testa o caso de arquivo vazio Como resultado, deve ser criado um arquivo
-     * p1.dat, também vazio
+     * *******************************************************************     
+     *********************************************************************/ 
+    
+    
+    /** 
+     * Testa o caso de arquivo vazio
+     * Como resultado, deve ser criado um arquivo p1.dat, também vazio
      */
     @Test
     public void teste1SelecaoComSubstituicao() throws FileNotFoundException, Exception {
@@ -304,13 +292,11 @@ public class GeracaoParticoesTest {
     public void teste2SelecaoComSubstituicao() throws FileNotFoundException, Exception {
         entrada.add(new Cliente(1, "João"));
         entrada.add(new Cliente(5, "Maria"));
-        entrada.add(new Cliente(Integer.MAX_VALUE, ""));
 
         Arquivos.salva(NOME_ARQUIVO_ENTRADA, entrada);
 
         oraculoSaida.add(new Cliente(1, "João"));
         oraculoSaida.add(new Cliente(5, "Maria"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
 
         nomeArquivosSaida.add("p1.dat");
 
@@ -327,13 +313,11 @@ public class GeracaoParticoesTest {
     public void teste3SelecaoComSubstituicao() throws FileNotFoundException, Exception {
         entrada.add(new Cliente(5, "Maria"));
         entrada.add(new Cliente(1, "João"));
-        entrada.add(new Cliente(Integer.MAX_VALUE, ""));
 
         Arquivos.salva(NOME_ARQUIVO_ENTRADA, entrada);
 
         oraculoSaida.add(new Cliente(1, "João"));
         oraculoSaida.add(new Cliente(5, "Maria"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
 
         nomeArquivosSaida.add("p1.dat");
 
@@ -355,7 +339,6 @@ public class GeracaoParticoesTest {
         entrada.add(new Cliente(8, "Vanessa"));
         entrada.add(new Cliente(7, "Bruna"));
         entrada.add(new Cliente(2, "Marcos"));
-        entrada.add(new Cliente(Integer.MAX_VALUE, ""));
 
         Arquivos.salva(NOME_ARQUIVO_ENTRADA, entrada);
 
@@ -365,7 +348,6 @@ public class GeracaoParticoesTest {
         oraculoSaida.add(new Cliente(7, "Bruna"));
         oraculoSaida.add(new Cliente(8, "Vanessa"));
         oraculoSaida.add(new Cliente(10, "Mirtes"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
 
         nomeArquivosSaida.add("p1.dat");
 
@@ -434,8 +416,7 @@ public class GeracaoParticoesTest {
         entrada.add(new Cliente(47, "Ricardo"));
         entrada.add(new Cliente(31, "Regiane"));
         entrada.add(new Cliente(80, "Fábio"));
-        entrada.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        
         Arquivos.salva(NOME_ARQUIVO_ENTRADA, entrada);
 
         nomeArquivosSaida.add("p1.dat");
@@ -453,18 +434,17 @@ public class GeracaoParticoesTest {
         oraculoSaida.add(new Cliente(46, "Larissa"));
         oraculoSaida.add(new Cliente(48, "Tatiana"));
         oraculoSaida.add(new Cliente(59, "Matheus"));
-        oraculoSaida.add(new Cliente(74, "Karla"));
+        oraculoSaida.add(new Cliente(74, "Karla"));        
         oraculoSaida.add(new Cliente(75, "Mariana"));
         oraculoSaida.add(new Cliente(76, "Mirtes"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        
         saida = Arquivos.leCliente(nomeArquivosSaida.get(0));
         assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
 
         oraculoSaida.clear();
         oraculoSaida.add(new Cliente(4, "Yasmin"));
         oraculoSaida.add(new Cliente(10, "Marcela"));
-        oraculoSaida.add(new Cliente(18, "Bruna"));
+        oraculoSaida.add(new Cliente(18, "Bruna"));        
         oraculoSaida.add(new Cliente(20, "Leonel"));
         oraculoSaida.add(new Cliente(21, "Ana"));
         oraculoSaida.add(new Cliente(22, "Maurício"));
@@ -472,12 +452,11 @@ public class GeracaoParticoesTest {
         oraculoSaida.add(new Cliente(49, "José"));
         oraculoSaida.add(new Cliente(56, "Catarina"));
         oraculoSaida.add(new Cliente(65, "Yoko"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        
         saida.clear();
         saida = Arquivos.leCliente(nomeArquivosSaida.get(1));
         assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
-
+        
         oraculoSaida.clear();
         oraculoSaida.add(new Cliente(5, "Viviane"));
         oraculoSaida.add(new Cliente(8, "TJ"));
@@ -492,15 +471,14 @@ public class GeracaoParticoesTest {
         oraculoSaida.add(new Cliente(66, "James Bond"));
         oraculoSaida.add(new Cliente(77, "Lois Lane"));
         oraculoSaida.add(new Cliente(78, "Alex"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        
         saida.clear();
         saida = Arquivos.leCliente(nomeArquivosSaida.get(2));
         assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
-
+        
         oraculoSaida.clear();
         oraculoSaida.add(new Cliente(9, "Joel"));
-        oraculoSaida.add(new Cliente(12, "Íris"));
+        oraculoSaida.add(new Cliente(12, "Íris"));        
         oraculoSaida.add(new Cliente(17, "Helô"));
         oraculoSaida.add(new Cliente(30, "Rosa"));
         oraculoSaida.add(new Cliente(32, "Milton"));
@@ -508,15 +486,14 @@ public class GeracaoParticoesTest {
         oraculoSaida.add(new Cliente(43, "Adriel"));
         oraculoSaida.add(new Cliente(51, "Bia"));
         oraculoSaida.add(new Cliente(54, "Carlos"));
-        oraculoSaida.add(new Cliente(58, "Xande"));
+        oraculoSaida.add(new Cliente(58, "Xande"));        
         oraculoSaida.add(new Cliente(73, "Sidney"));
         oraculoSaida.add(new Cliente(79, "Igor"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        
         saida.clear();
         saida = Arquivos.leCliente(nomeArquivosSaida.get(3));
         assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
-
+        
         oraculoSaida.clear();
         oraculoSaida.add(new Cliente(1, "Aline"));
         oraculoSaida.add(new Cliente(3, "Andrea"));
@@ -527,23 +504,22 @@ public class GeracaoParticoesTest {
         oraculoSaida.add(new Cliente(47, "Ricardo"));
         oraculoSaida.add(new Cliente(60, "Murilo"));
         oraculoSaida.add(new Cliente(80, "Fábio"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        
         saida.clear();
         saida = Arquivos.leCliente(nomeArquivosSaida.get(4));
         assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
     }
-
-    /**
-     * *******************************************************************
+    
+    /*********************************************************************
      * *******************************************************************
      * TESTES RELACIONADOS A GERAÇÃO DE PARTIÇÃO POR SELECAO NATURAL
-     * *******************************************************************
-     * *******************************************************************
-     */
-    /**
-     * Testa o caso de arquivo vazio Como resultado, deve ser criado um arquivo
-     * p1.dat, também vazio
+     * *******************************************************************     
+     *********************************************************************/ 
+    
+    
+    /** 
+     * Testa o caso de arquivo vazio
+     * Como resultado, deve ser criado um arquivo p1.dat, também vazio
      */
     //@Test
     public void teste1SelecaoNatural() throws FileNotFoundException, Exception {
@@ -563,13 +539,11 @@ public class GeracaoParticoesTest {
     public void teste2SelecaoNatural() throws FileNotFoundException, Exception {
         entrada.add(new Cliente(1, "João"));
         entrada.add(new Cliente(5, "Maria"));
-        entrada.add(new Cliente(Integer.MAX_VALUE, ""));
 
         Arquivos.salva(NOME_ARQUIVO_ENTRADA, entrada);
 
         oraculoSaida.add(new Cliente(1, "João"));
         oraculoSaida.add(new Cliente(5, "Maria"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
 
         nomeArquivosSaida.add("p1.dat");
 
@@ -586,13 +560,11 @@ public class GeracaoParticoesTest {
     public void teste3SelecaoNatural() throws FileNotFoundException, Exception {
         entrada.add(new Cliente(5, "Maria"));
         entrada.add(new Cliente(1, "João"));
-        entrada.add(new Cliente(Integer.MAX_VALUE, ""));
 
         Arquivos.salva(NOME_ARQUIVO_ENTRADA, entrada);
 
         oraculoSaida.add(new Cliente(1, "João"));
         oraculoSaida.add(new Cliente(5, "Maria"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
 
         nomeArquivosSaida.add("p1.dat");
 
@@ -614,7 +586,6 @@ public class GeracaoParticoesTest {
         entrada.add(new Cliente(8, "Vanessa"));
         entrada.add(new Cliente(7, "Bruna"));
         entrada.add(new Cliente(2, "Marcos"));
-        entrada.add(new Cliente(Integer.MAX_VALUE, ""));
 
         Arquivos.salva(NOME_ARQUIVO_ENTRADA, entrada);
 
@@ -624,7 +595,6 @@ public class GeracaoParticoesTest {
         oraculoSaida.add(new Cliente(7, "Bruna"));
         oraculoSaida.add(new Cliente(8, "Vanessa"));
         oraculoSaida.add(new Cliente(10, "Mirtes"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
 
         nomeArquivosSaida.add("p1.dat");
 
@@ -693,8 +663,7 @@ public class GeracaoParticoesTest {
         entrada.add(new Cliente(47, "Ricardo"));
         entrada.add(new Cliente(31, "Regiane"));
         entrada.add(new Cliente(80, "Fábio"));
-        entrada.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        
         Arquivos.salva(NOME_ARQUIVO_ENTRADA, entrada);
 
         nomeArquivosSaida.add("p1.dat");
@@ -713,30 +682,28 @@ public class GeracaoParticoesTest {
         oraculoSaida.add(new Cliente(48, "Tatiana"));
         oraculoSaida.add(new Cliente(56, "Catarina"));
         oraculoSaida.add(new Cliente(59, "Matheus"));
-        oraculoSaida.add(new Cliente(74, "Karla"));
+        oraculoSaida.add(new Cliente(74, "Karla"));        
         oraculoSaida.add(new Cliente(75, "Mariana"));
         oraculoSaida.add(new Cliente(76, "Mirtes"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        
         saida = Arquivos.leCliente(nomeArquivosSaida.get(0));
         assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
 
         oraculoSaida.clear();
         oraculoSaida.add(new Cliente(4, "Yasmin"));
         oraculoSaida.add(new Cliente(10, "Marcela"));
-        oraculoSaida.add(new Cliente(18, "Bruna"));
+        oraculoSaida.add(new Cliente(18, "Bruna"));        
         oraculoSaida.add(new Cliente(20, "Leonel"));
         oraculoSaida.add(new Cliente(21, "Ana"));
         oraculoSaida.add(new Cliente(22, "Maurício"));
         oraculoSaida.add(new Cliente(26, "Leo"));
-        oraculoSaida.add(new Cliente(49, "José"));
+        oraculoSaida.add(new Cliente(49, "José"));        
         oraculoSaida.add(new Cliente(65, "Yoko"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        
         saida.clear();
         saida = Arquivos.leCliente(nomeArquivosSaida.get(1));
         assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
-
+        
         oraculoSaida.clear();
         oraculoSaida.add(new Cliente(5, "Viviane"));
         oraculoSaida.add(new Cliente(8, "TJ"));
@@ -753,44 +720,43 @@ public class GeracaoParticoesTest {
         oraculoSaida.add(new Cliente(66, "James Bond"));
         oraculoSaida.add(new Cliente(77, "Lois Lane"));
         oraculoSaida.add(new Cliente(78, "Alex"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        
         saida.clear();
         saida = Arquivos.leCliente(nomeArquivosSaida.get(2));
         assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
-
+        
         oraculoSaida.clear();
         oraculoSaida.add(new Cliente(9, "Joel"));
-        oraculoSaida.add(new Cliente(12, "Íris"));
-        oraculoSaida.add(new Cliente(17, "Helô"));
+        oraculoSaida.add(new Cliente(12, "Íris"));        
+        oraculoSaida.add(new Cliente(17, "Helô"));        
         oraculoSaida.add(new Cliente(32, "Milton"));
         oraculoSaida.add(new Cliente(38, "Ana Paula"));
         oraculoSaida.add(new Cliente(43, "Adriel"));
         oraculoSaida.add(new Cliente(47, "Ricardo"));
-        oraculoSaida.add(new Cliente(51, "Bia"));
-        oraculoSaida.add(new Cliente(58, "Xande"));
+        oraculoSaida.add(new Cliente(51, "Bia"));        
+        oraculoSaida.add(new Cliente(58, "Xande"));  
         oraculoSaida.add(new Cliente(60, "Murilo"));
         oraculoSaida.add(new Cliente(73, "Sidney"));
         oraculoSaida.add(new Cliente(79, "Igor"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        
         saida.clear();
         saida = Arquivos.leCliente(nomeArquivosSaida.get(3));
         assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
-
+        
         oraculoSaida.clear();
         oraculoSaida.add(new Cliente(1, "Aline"));
         oraculoSaida.add(new Cliente(3, "Andrea"));
         oraculoSaida.add(new Cliente(13, "Fausto"));
         oraculoSaida.add(new Cliente(27, "Alexandre"));
         oraculoSaida.add(new Cliente(31, "Regiane"));
-        oraculoSaida.add(new Cliente(36, "Rafael"));
+        oraculoSaida.add(new Cliente(36, "Rafael"));      
         oraculoSaida.add(new Cliente(80, "Fábio"));
-        oraculoSaida.add(new Cliente(Integer.MAX_VALUE, ""));
-
+        
         saida.clear();
         saida = Arquivos.leCliente(nomeArquivosSaida.get(4));
         assertArrayEquals(oraculoSaida.toArray(), saida.toArray());
     }
-
+    
+        
+    
 }
