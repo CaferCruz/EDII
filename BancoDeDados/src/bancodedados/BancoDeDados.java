@@ -26,7 +26,7 @@ public class BancoDeDados {
             System.out.println("1. Adicionar");
             System.out.println("2. Remover");
             System.out.println("3. Buscar");
-            System.out.println("4. Lista");
+            System.out.println("4. Listar");
             System.out.println("5. Sair");
             System.out.println("***********");
             System.out.print("escolha: ");

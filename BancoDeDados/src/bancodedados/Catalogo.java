@@ -40,15 +40,21 @@ public class Catalogo {
 
     public static void listar() throws FileNotFoundException, IOException {
         DataInputStream in = null;
+        String type;
         try {
             in = new DataInputStream(new BufferedInputStream(new FileInputStream(arq)));
             //Fazer que esteja garantindo que seja escrito no final.
             System.out.println("***Lista de Tabelas***");
             while (true) {
-                System.out.println(in.readUTF());
+                System.out.println("Tabela: "+in.readUTF());
                 int tipo = in.readInt();
+                if (tipo == 1) {
+                     type = "Inteiro"; 
+                }else{
+                     type = "String";
+                }
                 do {
-                    System.out.println(tipo + " " + in.readUTF());
+                    System.out.println(type + ": " + in.readUTF());
                     tipo = in.readInt();
                 } while (tipo != -1);
             }
