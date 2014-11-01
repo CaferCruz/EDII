@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package bancodedados;
 
 /**
@@ -13,19 +12,28 @@ package bancodedados;
 public class Campo {
 
     private int tipo; //1: interiro 2: String
-    private String coluna;
-    
+    private String atributo;
+    private boolean pk;
+
     public Campo(int tipo, String coluna) {
         this.tipo = tipo;
-        this.coluna = coluna;
+        this.atributo = coluna;
+        this.pk = false;
     }
 
     public int getTipo() {
         return tipo;
     }
 
-    public String getColuna() {
-        return coluna;
+    public String getAtributo() {
+        return atributo;
     }
-    
+
+    public boolean isPk() {
+        return pk;
+    }
+
+    public void setPK(boolean pk) {
+        this.pk = pk;
+    }
 }

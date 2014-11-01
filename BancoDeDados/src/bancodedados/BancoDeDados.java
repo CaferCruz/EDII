@@ -5,8 +5,11 @@
  */
 package bancodedados;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,7 +29,7 @@ public class BancoDeDados {
             System.out.println("1. Adicionar");
             System.out.println("2. Remover");
             System.out.println("3. Buscar");
-            System.out.println("4. Listar");
+            System.out.println("4. Listar Catalogo");
             System.out.println("5. Sair");
             System.out.println("***********");
             System.out.print("escolha: ");
@@ -35,34 +38,67 @@ public class BancoDeDados {
                 case 1:
                     System.out.println("***********");
                     System.out.print("Tabela: ");
-                    Tabela tab = new Tabela(tec.next());
-                    boolean loopTab = true;
-                    //repetir
-                    while (loopTab) {
-                        System.out.println("*** Campos da tabela ***");
-                        System.out.println("1. Inserir novo campo.");
-                        System.out.println("2. Salvar e sair.");
-                        System.out.print("escolha: ");
-                        int resp = tec.nextInt();
-                        switch (resp) {
-                            case 1:
-                                System.out.print("Nome do Campo:");
-                                String nomeCampo = tec.next();
-                                System.out.println("*** Tipo ***");
-                                System.out.println("1. Inteiro");
-                                System.out.println("2. String");
-                                System.out.print("escolha: ");
-                                int tipo = tec.nextInt();
-                                tab.addCampo(new Campo(tipo, nomeCampo));
-                                break;
-                            case 2:
-                                if (tab.isCampoVazio()) {
-                                    System.out.println("Informe pelo menos um campo.");
-                                } else {
-                                    tab.salva();
-                                    loopTab = false;
-                                }
-                                break;
+                    tec.nextLine();
+                    String nomeT = formatarNome(tec.nextLine());
+                    if (Catalogo.buscar(nomeT)) {
+                        System.out.println("Nome existente, não é possível continuar.");
+                        System.out.println("***********");
+                    } else {
+                        Tabela tab = new Tabela(nomeT);
+                        boolean loopTab = true;
+                        //repetir
+                        while (loopTab) {
+                            System.out.println("*** Campos da tabela ***");
+                            System.out.println("1. Inserir campo.");
+                            System.out.println("2. Salvar e sair.");
+                            System.out.println("***********");
+                            System.out.print("escolha: ");
+                            int resp = tec.nextInt();
+                            switch (resp) {
+                                case 1:
+                                    boolean isExiste = true;
+                                    int tipo = 0;
+                                    String nomeCampo = "";
+                                    while (isExiste) {
+                                        System.out.print("Nome do Campo:");
+                                        tec.nextLine();
+                                        nomeCampo = formatarNome(tec.nextLine());
+                                        System.out.println("*** Tipo ***");
+                                        System.out.println("1. Inteiro");
+                                        System.out.println("2. String");
+                                        System.out.println("***********");
+                                        System.out.print("escolha: ");
+                                        tipo = tec.nextInt();
+                                        //verificar se atributo já existe na tabela.
+                                        isExiste = false;
+                                        for (Campo c : tab.getCampos()) {
+                                            if (c.getAtributo().equalsIgnoreCase(nomeCampo)) {
+                                                System.out.println("Atributo existente, insira outro nome.");
+                                                isExiste = true;
+                                            }
+                                        }
+                                    }
+                                    tab.addCampo(new Campo(tipo, nomeCampo));
+                                    break;
+                                case 2:
+                                    if (tab.isCampoVazio()) {
+                                        System.out.println("Informe pelo menos um campo.");
+                                    } else {
+                                        System.out.println("***********");
+                                        System.out.println("*****Definir Chave Primaria (PK)******");
+                                        for (int i = 1; i <= tab.getCampos().size(); i++) {
+                                            System.out.println(i + ". " + tab.getCampos().get(i - 1).getAtributo());
+                                        }
+                                        System.out.println("***********");
+                                        System.out.print("Escolha a chave primaria:");
+                                        int pk = tec.nextInt();
+                                        tab.getCampos().get(pk - 1).setPK(true);
+                                        //Salvar a tabela no catálogo
+                                        tab.salva();
+                                        loopTab = false;
+                                    }
+                                    break;
+                            }
                         }
                     }
                     break;
@@ -82,4 +118,8 @@ public class BancoDeDados {
         }
     }
 
+    private static String formatarNome(String nTabela) {
+        nTabela = nTabela.replace(" ", "_");
+        return nTabela;
+    }
 }

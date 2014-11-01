@@ -14,8 +14,8 @@ import java.util.ArrayList;
  */
 public class Tabela {
 
-    private String nomeTabela;
-    private ArrayList<Campo> campos;
+    private final String nomeTabela;
+    private final ArrayList<Campo> campos;
 
     public Tabela(String nomeTabela) throws IOException {
         this.nomeTabela = nomeTabela;
@@ -30,6 +30,10 @@ public class Tabela {
         return this.campos.isEmpty();
     }
 
+    public ArrayList<Campo> getCampos() {
+        return campos;
+    }
+    
     public void salva() throws FileNotFoundException, IOException {
         //Salvar no catálogo
         Catalogo.adicionar(this.nomeTabela, this.campos);
