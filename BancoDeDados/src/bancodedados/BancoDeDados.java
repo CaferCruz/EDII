@@ -28,9 +28,10 @@ public class BancoDeDados {
             System.out.println("*** MENU ***");
             System.out.println("1. Adicionar");
             System.out.println("2. Remover");
-            System.out.println("3. Buscar");
-            System.out.println("4. Listar Catalogo");
-            System.out.println("5. Sair");
+            System.out.println("3.Inserir Registro");
+            System.out.println("4. Buscar Registro");
+            System.out.println("5. Listar Catalogo");
+            System.out.println("6. Sair");
             System.out.println("***********");
             System.out.print("escolha: ");
             int menu = tec.nextInt();
@@ -106,12 +107,28 @@ public class BancoDeDados {
                     System.out.println("Em construção");
                     break;
                 case 3:
-                    System.out.println("Em construção");
+                    System.out.println("Digite o nome da tabela à ser inserida");
+                    String nome = tec.nextLine();
+                    
+                    if(!Catalogo.buscar(nome)){
+                        System.out.println("Não existe esta tabela");
+                    }else{
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
                     break;
                 case 4:
-                    Catalogo.listar();
+                    
                     break;
                 case 5:
+                    Catalogo.listar();
+                    break;
+                case 6:
                     loop = false;
                     break;
             }
