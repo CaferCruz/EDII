@@ -36,4 +36,9 @@ public class Campo {
     public void setPK(boolean pk) {
         this.pk = pk;
     }
+    
+    public String toSring(){
+        return "Tipo: " + (this.tipo == 1 ? "Interio" : "String" ) + "\n" + "Nome: " + this.atributo;
+        
+    }
 }

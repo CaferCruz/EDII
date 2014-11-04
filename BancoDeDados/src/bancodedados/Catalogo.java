@@ -7,8 +7,6 @@ package bancodedados;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -96,19 +94,22 @@ public class Catalogo {
         DataInputStream inT = null;
         try {
             inT = new DataInputStream(new BufferedInputStream(new FileInputStream(arqTabela)));
-            while(true){
-                if(inT.readUTF().equalsIgnoreCase(nomeTabela)){
+            while (true) {
+                if (inT.readUTF().equalsIgnoreCase(nomeTabela)) {
                     return true;
                 }
             }
         } catch (FileNotFoundException ex) {
             throw new FileNotFoundException("Arquivo não pode ser encontrado.");
         } catch (EOFException eof) {
-        }finally {
+        } finally {
             if (inT != null) {
                 inT.close();
             }
         }
         return false;
     }
+
+    
+
 }

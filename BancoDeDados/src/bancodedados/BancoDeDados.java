@@ -23,7 +23,8 @@ public class BancoDeDados {
     public static void main(String[] args) throws IOException {
         Scanner tec = new Scanner(System.in);
         boolean loop = true;
-
+        CatalogoNovo catalogo = new CatalogoNovo();
+        catalogo.carregar();
         while (loop) {
             System.out.println("*** MENU ***");
             System.out.println("1. Adicionar");
@@ -41,13 +42,13 @@ public class BancoDeDados {
                     System.out.print("Tabela: ");
                     tec.nextLine();
                     String nomeT = formatarNome(tec.nextLine());
-                    if (Catalogo.buscar(nomeT)) {
+                    if (catalogo.buscar(nomeT)) {
                         System.out.println("Nome existente, não é possível continuar.");
                         System.out.println("***********");
                     } else {
                         Tabela tab = new Tabela(nomeT);
                         boolean loopTab = true;
-                        //repetir
+                        // Loop dos Campos
                         while (loopTab) {
                             System.out.println("*** Campos da tabela ***");
                             System.out.println("1. Inserir campo.");
@@ -93,9 +94,13 @@ public class BancoDeDados {
                                         System.out.println("***********");
                                         System.out.print("Escolha a chave primaria:");
                                         int pk = tec.nextInt();
+
                                         tab.getCampos().get(pk - 1).setPK(true);
+                                        Campo aux = tab.getCampos().remove(pk - 1);
+                                        tab.getCampos().add(0, aux);
                                         //Salvar a tabela no catálogo
-                                        tab.salva();
+                                        catalogo.adicionar(tab);
+//tab.salva();
                                         loopTab = false;
                                     }
                                     break;
@@ -109,24 +114,20 @@ public class BancoDeDados {
                 case 3:
                     System.out.println("Digite o nome da tabela à ser inserida");
                     String nome = tec.nextLine();
-                    
-                    if(!Catalogo.buscar(nome)){
+                    tec.nextLine();
+
+                    if (!Catalogo.buscar(nome)) {
                         System.out.println("Não existe esta tabela");
-                    }else{
-                        
+                    } else {
+
                     }
-                    
-                    
-                    
-                    
-                    
-                    
+
                     break;
                 case 4:
-                    
+
                     break;
                 case 5:
-                    Catalogo.listar();
+                    catalogo.listar();
                     break;
                 case 6:
                     loop = false;

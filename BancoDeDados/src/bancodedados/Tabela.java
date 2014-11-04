@@ -5,9 +5,9 @@
  */
 package bancodedados;
 
-
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 /**
@@ -16,9 +16,10 @@ import java.util.Scanner;
  */
 public class Tabela {
 
-    private final String nomeTabela;
+    private String nomeTabela = "";
     private final ArrayList<Campo> campos;
     private int tamRegistro;
+    private Campo pk = null;
 
     public Tabela(String nomeTabela) throws IOException {
         this.nomeTabela = nomeTabela;
@@ -27,12 +28,16 @@ public class Tabela {
 
     public void addCampo(Campo c) {
         this.campos.add(c);
-        if(c.getTipo()==1){
-            tamRegistro = tamRegistro+4;
+        if (c.getTipo() == 1) {
+            tamRegistro = tamRegistro + 4;
         }
-        if(c.getTipo()==2){
-            tamRegistro = tamRegistro+12;
+        if (c.getTipo() == 2) {
+            tamRegistro = tamRegistro + 12;
         }
+    }
+
+    public String getNome() {
+        return this.nomeTabela;
     }
 
     public boolean isCampoVazio() {
@@ -42,8 +47,9 @@ public class Tabela {
     public ArrayList<Campo> getCampos() {
         return campos;
     }
-    
+
     public void salva() throws FileNotFoundException, IOException {
+        setPK();
         //Salvar no catálogo
         Catalogo.adicionar(this.nomeTabela, this.campos);
         //Criação do arquivo da tabela
@@ -60,69 +66,23 @@ public class Tabela {
 
         }
     }
-    
-    public void insereRegistro(){
-        ArrayList<TipoData> datas = new ArrayList();
-        Scanner tec = new Scanner(System.in);
-        
-        for (int i = 0; i < campos.size(); i++) {
-            if(campos.get(i).getTipo()==1){
-                TipoData  nova = new TipoData(tec.nextInt());
-                datas.add(nova);
-            }
-            if(campos.get(i).getTipo()==2){
-                TipoData  nova = new TipoData(tec.next());
-                datas.add(nova);
-            }
-            
+
+    @Override
+    public String toString() {
+        String texto = "Tabela: " + this.nomeTabela + "\n" + "Chave Primária: " + this.pk.toSring();
+        Iterator it = campos.iterator();
+        while (it.hasNext()) {
+            texto += "\n" + it.next();
         }
+
+        return texto;
     }
-    
-    
-    public Registro le(RandomAccessFile in) throws IOException {
-        ArrayList<TipoData> datas = new ArrayList();
-        for (int i = 0; i < datas.size(); i++) {
-            if(campos.get(i).getTipo()==1){
-                TipoData nova = new TipoData(in.readInt());
-                datas.add(nova);
-            }
-            if(campos.get(i).getTipo()==2){
-                TipoData nova = new TipoData(in.readUTF());
-                datas.add(nova);
-            }
-        }
-        return new Registro (datas,in.readInt(),in.readBoolean());
+
+    public void setPK() {
+        pk = campos.get(0);
+        campos.get(0).setPK(true);
     }
-    
-    public void criaHash(String nomeArquivoHash, int tam) throws IOException {
-        //TODO: criar a tabela hash
-        RandomAccessFile arquivo = null;        
-        try {
-            arquivo = new RandomAccessFile(new File(nomeArquivoHash),"rw");
-            ArrayList<TipoData> datasVazias =new ArrayList();
-            for (int j = 0; j < this.campos.size(); j++) {
-                TipoData nova;
-                    if(campos.get(j).getTipo()==1){
-                        nova = new TipoData(0);
-                    }
-                    if(campos.get(j).getTipo()==2){
-                        nova = new TipoData("            ");
-                    }
-                    
-            }
-            for(int i = 0; i < tam; i++) { 
-                new Registro(datasVazias,i, Registro.LIBERADO).salva(arquivo);
-            }
-        
-        } catch(IOException e) {
-            //
-        } finally {
-            if(arquivo != null) {
-                arquivo.close();
-            }
-        }
-    }
-    
+
 //    public int insere(int codCli, String nomeCli, String nomeArquivoHash) throws Exception {
 //        //TODO: Inserir aqui o código do algoritmo de inserção
 //        Result resultado = busca(codCli, nomeArquivoHash); 
@@ -192,9 +152,4 @@ public class Tabela {
 //        
 //        return endereco;
 //    }
-
 }
-    
-    
-    
-
