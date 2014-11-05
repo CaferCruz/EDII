@@ -69,12 +69,17 @@ public class Tabela {
 
     @Override
     public String toString() {
-        String texto = "Tabela: " + this.nomeTabela + "\n" + "Chave Primária: " + this.pk.toSring();
-        Iterator it = campos.iterator();
-        while (it.hasNext()) {
-            texto += "\n" + it.next();
+        
+        String texto = "\n"+"Tabela: " + this.nomeTabela + "\n" + "Chave Primária: " + campos.get(0).toSring();
+        for (Campo c : campos) {
+            texto += "\n" + c.toSring();
+
         }
 
+//        Iterator it = campos.iterator();
+//        while (it.hasNext()) {
+//            texto += "\n" + it.next();
+//        }
         return texto;
     }
 

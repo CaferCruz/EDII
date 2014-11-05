@@ -38,7 +38,7 @@ public class Campo {
     }
     
     public String toSring(){
-        return "Tipo: " + (this.tipo == 1 ? "Interio" : "String" ) + "\n" + "Nome: " + this.atributo;
+        return "Tipo: " + (this.tipo == 1 ? "Inteiro" : "String" )+"\t" + "Nome: " + this.atributo;
         
     }
 }

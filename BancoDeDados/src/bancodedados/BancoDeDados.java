@@ -65,6 +65,7 @@ public class BancoDeDados {
                                         System.out.print("Nome do Campo:");
                                         tec.nextLine();
                                         nomeCampo = formatarNome(tec.nextLine());
+                                        //TODO: verificar se tabela já existe
                                         System.out.println("*** Tipo ***");
                                         System.out.println("1. Inteiro");
                                         System.out.println("2. String");
@@ -100,7 +101,6 @@ public class BancoDeDados {
                                         tab.getCampos().add(0, aux);
                                         //Salvar a tabela no catálogo
                                         catalogo.adicionar(tab);
-//tab.salva();
                                         loopTab = false;
                                     }
                                     break;

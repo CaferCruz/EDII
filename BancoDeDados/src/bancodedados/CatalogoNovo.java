@@ -17,13 +17,14 @@ import java.util.Iterator;
  */
 public class CatalogoNovo {
 
-    HashMap<String, Tabela> tabelas;
+    HashMap<String, Tabela> tabelas = null;
 
     private final String arq = "catalogo2.dat";
     private final String FIM = "FimDeArquivo";
 
-    public CatalogoNovo() {
+    public CatalogoNovo() throws IOException {
         tabelas = new HashMap<>();
+      //  this.salva();
     }
 
     boolean adicionar(Tabela tab) throws FileNotFoundException, IOException {
@@ -77,7 +78,6 @@ public class CatalogoNovo {
                     Campo c = new Campo(arqT.readInt(), arqT.readUTF());
                     t.addCampo(c);
                 }
-                
                 t.setPK();
                 tabelas.put(nome, t);
                 nome = arqT.readUTF();
