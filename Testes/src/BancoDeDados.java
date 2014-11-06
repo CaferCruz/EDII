@@ -1,0 +1,145 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Cafer
+ */
+public class BancoDeDados {
+
+    /**
+     * @param args the command line arguments
+     * @throws java.io.IOException
+     */
+    public static void main(String[] args) throws Exception {
+        Scanner tec = new Scanner(System.in);
+        boolean loop = true;
+        CatalogoNovo catalogo = new CatalogoNovo();
+        catalogo.carregar();
+        while (loop) {
+            System.out.println("*** MENU ***");
+            System.out.println("1. Adicionar");
+            System.out.println("2. Remover");
+            System.out.println("3. Inserir Registro");
+            System.out.println("4. Buscar Registro");
+            System.out.println("5. Listar Catalogo");
+            System.out.println("6. Sair");
+            System.out.println("***********");
+            System.out.print("escolha: ");
+            int menu = tec.nextInt();
+            switch (menu) {
+                case 1:
+                    System.out.println("***********");
+                    System.out.print("Tabela: ");
+                    tec.nextLine();
+                    String nomeT = formatarNome(tec.nextLine());
+                    if (catalogo.contem(nomeT)) {
+                        System.out.println("Nome existente, não é possível continuar.");
+                        System.out.println("***********");
+                    } else {
+                        Tabela tab = new Tabela(nomeT);
+                        boolean loopTab = true;
+                        // Loop dos Campos
+                        while (loopTab) {
+                            System.out.println("*** Campos da tabela ***");
+                            System.out.println("1. Inserir campo.");
+                            System.out.println("2. Salvar e sair.");
+                            System.out.println("***********");
+                            System.out.print("escolha: ");
+                            int resp = tec.nextInt();
+                            switch (resp) {
+                                case 1:
+                                    boolean isExiste = true;
+                                    int tipo = 0;
+                                    String nomeCampo = "";
+                                    while (isExiste) {
+                                        System.out.print("Nome do Campo:");
+                                        tec.nextLine();
+                                        nomeCampo = formatarNome(tec.nextLine());
+                                        //TODO: verificar se tabela já existe
+                                        System.out.println("*** Tipo ***");
+                                        System.out.println("1. Inteiro");
+                                        System.out.println("2. String");
+                                        System.out.println("***********");
+                                        System.out.print("escolha: ");
+                                        tipo = tec.nextInt();
+                                        //verificar se atributo já existe na tabela.
+                                        isExiste = false;
+                                        for (Campo c : tab.getCampos()) {
+                                            if (c.getAtributo().equalsIgnoreCase(nomeCampo)) {
+                                                System.out.println("Atributo existente, insira outro nome.");
+                                                isExiste = true;
+                                            }
+                                        }
+                                    }
+                                    tab.addCampo(new Campo(tipo, nomeCampo));
+                                    break;
+                                case 2:
+                                    if (tab.isCampoVazio()) {
+                                        System.out.println("Informe pelo menos um campo.");
+                                    } else {
+                                        System.out.println("***********");
+                                        System.out.println("*****Definir Chave Primaria (PK)******");
+                                        for (int i = 1; i <= tab.getCampos().size(); i++) {
+                                            System.out.println(i + ". " + tab.getCampos().get(i - 1).getAtributo());
+                                        }
+                                        System.out.println("***********");
+                                        System.out.print("Escolha a chave primaria:");
+                                        int pk = tec.nextInt();
+
+                                        tab.getCampos().get(pk - 1).setPK(true);
+                                        Campo aux = tab.getCampos().remove(pk - 1);
+                                        tab.getCampos().add(0, aux);
+                                        //Salvar a tabela no catálogo
+                                        catalogo.adicionar(tab);
+                                        tab.inicializarTabela();
+                                        loopTab = false;
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                    break;
+                case 2:
+                    System.out.println("Em construção");
+                    break;
+                case 3:
+                    System.out.println("*****Tabelas*****");
+                    catalogo.listarNomeTabela();
+                    System.out.println("***********");
+                    System.out.print("Escolha a tabela: ");
+                    String nome = catalogo.getNomeTabela(tec.nextInt());
+                    if (!catalogo.contem(nome)) {
+                        System.out.println("Não existe esta tabela");
+                    } else {
+                        System.out.println("Informe os dados: ");
+                        tec.nextLine();
+                        String tupla = tec.nextLine();
+                        Tabela tabela = catalogo.getTabela(nome);
+                        tabela.addTupla(tupla);
+                    }
+
+                    break;
+                case 4:
+
+                    break;
+                case 5:
+                    catalogo.listar();
+                    break;
+                case 6:
+                    loop = false;
+                    break;
+            }
+        }
+    }
+
+    private static String formatarNome(String nTabela) {
+        nTabela = nTabela.replace(" ", "_");
+        return nTabela;
+    }
+}
